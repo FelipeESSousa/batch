@@ -6,6 +6,7 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
@@ -37,6 +38,6 @@ public class JobConfiguration {
 
     @Bean(name = "job1")
     public Job job1() {
-        return jobBuilderFactory.get("job1").start(step1()).build();
+        return jobBuilderFactory.get("job1").incrementer(new RunIdIncrementer()).start(step1()).build();
     }
 }
